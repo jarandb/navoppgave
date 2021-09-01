@@ -9,12 +9,16 @@ import Jobs from "./components/Jobs/Jobs";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Loading from "./components/Loading/Loading";
+import ErrorCard from "./components/Error/Error";
 
 // Types/Interfaces
 import IJob from "./Interfaces/IJob";
 interface IJobAxios {
   content: IJob[];
 }
+
+const config = require("./config.json");
+
 const defaultJobs: IJob[] = [];
 
 function App() {
@@ -27,25 +31,22 @@ function App() {
 
   React.useEffect(() => {
     axios
-      .get<IJobAxios>(
-        "https://arbeidsplassen.nav.no/public-feed/api/v1/ads?size=100",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwdWJsaWMudG9rZW4udjFAbmF2Lm5vIiwiYXVkIjoiZmVlZC1hcGktdjEiLCJpc3MiOiJuYXYubm8iLCJpYXQiOjE1NTc0NzM0MjJ9.jNGlLUF9HxoHo5JrQNMkweLj_91bgk97ZebLdfx3_UQ",
-          },
-        }
-      )
+      .get<IJobAxios>(`${config.apiBasePath}/public-feed/api/v1/ads?size=100`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${config.apiPublicKey}`,
+        },
+      })
       .then((response) => {
+        throw Error();
         setJobs(response.data.content);
         setLoading(false);
       })
       .catch((ex) => {
         const error =
           ex && ex.response && ex.response.status === 404
-            ? "Resource Not found"
-            : "An unexpected error has occurred";
+            ? "Vi fant ikke det du lette etter. Vennligst ta kontakt med kundeservice"
+            : "en uventent feil har skjedd, dessverre. Prøv igjen senere";
         setError(error);
         setLoading(false);
       });
@@ -55,7 +56,7 @@ function App() {
   if (loading) {
     showJobsComponent = <Loading />;
   } else if (error) {
-    showJobsComponent = <Jobs jobs={jobs} />;
+    showJobsComponent = <ErrorCard err={error} />;
   } else {
     showJobsComponent = <Jobs jobs={jobs} />;
   }
