@@ -1,0 +1,44 @@
+@import (reference) "nav-frontend-core";
+
+.job {
+  padding: 1rem;
+  width: 100%;
+  min-height: 200px;
+  color: @navMorkGra;
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  border: 3px solid @navBakgrunn;
+  transition: border 0.3s ease-in-out;
+  &:nth-child(even) {
+    background: @navOransjeLighten80;
+    border: 3px solid @navOransjeLighten80;
+  }
+  &:focus {
+    border: 3px solid @fokusFarge;
+  }
+
+  &:hover {
+    border: 3px solid @navBlaLighten80;
+  }
+
+  .title {
+    font-size: 20px;
+    line-height: 25px;
+    font-weight: 600 semi bold;
+  }
+  .employer,
+  .workplace {
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 600 semi bold;
+    margin: 0;
+  }
+  .employer {
+    margin-bottom: 10px;
+  }
+  .ad-age {
+    margin: 10px 0 0;
+  }
+}
