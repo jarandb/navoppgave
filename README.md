@@ -20,4 +20,4 @@ I et prosjekt som dette ville jeg videre ha skrevet en filterfunksjon slik at br
 
 ## Lighthouse
 
-Ved å kjøre lighthouse i browseren oppnår prosjektet en score på performance: 95, accessibility: 100, best practices: 100, og SEO: 100
+Ved å kjøre lighthouse i browseren oppnår prosjektet en score på `performance: 95`, `accessibility: 100`, `best practices: 100`, og `SEO: 100`
