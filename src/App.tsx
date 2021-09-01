@@ -38,7 +38,6 @@ function App() {
         },
       })
       .then((response) => {
-        throw Error();
         setJobs(response.data.content);
         setLoading(false);
       })
